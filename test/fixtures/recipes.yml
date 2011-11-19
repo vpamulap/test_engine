@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  name: MyString
+  directions: MyText
+  picture_path: MyString
+
+two:
+  name: MyString
+  directions: MyText
+  picture_path: MyString
