@@ -22,6 +22,6 @@
 
 <br />
 
-<%= @groceries.first['name'] %>
-
 <%= link_to 'New Meal', new_meal_path %>
+
+<%= @groceries.each { |grocery| puts grocery } %>
