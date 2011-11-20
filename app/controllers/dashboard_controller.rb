@@ -15,5 +15,9 @@ class DashboardController < ApplicationController
   def change_recipe
     # todo: returns a new random recipe template to replace one they rejected.
     # Pick one that is not already shown on the page
+    respond_to do |format|
+      format.html # recipe.html.erb
+      format.json { render json: @recipes }
+    end
   end
 end
