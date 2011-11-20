@@ -1,13 +1,20 @@
+require "generate_meal_plan.rb"
+
 class RecipesController < ApplicationController
   # GET /recipes
   # GET /recipes.json
+  
+  
   def index
     @recipes = Recipe.all
+    @meal_plan = GenerateMealPlan.new.pick_n_recipes(3)
 
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @recipes }
     end
+    
+    
   end
 
   # GET /recipes/1
