@@ -3,12 +3,49 @@ class MealsController < ApplicationController
   # GET /meals.json
   def index
     @meals = Meal.all
+    
+    @groceries = consolidate(@meals)
 
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @meals }
     end
   end
+
+  def consolidate(meals)
+    # Find all unique names
+    names = []
+    meals.each do |meal|
+        meal.recipe.ingredients.each do |ingredient|
+             names << ingredient.name
+        end
+    end
+    
+    names.uniq!
+    
+    # Find quantity and recipe_id's for each name
+    groceries = []
+    names.each do |name|
+        quantity = 0
+        recipes = []
+        
+        meals.each do |meal|
+            meal.recipe.ingredients.each do |ingredient|
+                if ingredient.name == name
+                    quantity += ingredient.quantity
+                    recipes << ingredient.recipe_id
+                end
+            end
+        end
+        
+        groceries << { 'quantity' => quantity, 'name' => name, 'recipes' => recipes.join(',') }
+    end
+    
+    logger.info groceries
+    
+    groceries
+end
+
 
   # GET /meals/1
   # GET /meals/1.json
